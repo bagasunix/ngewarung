@@ -41,7 +41,11 @@ type Cfg struct {
 	} `mapstructure:"database"`
 
 	RabbitMQ struct {
-		Broker string `mapstructure:"broker"`
+		Driver   string `mapstructure:"driver"`
+		Host     string `mapstructure:"host"`
+		Port     int    `mapstructure:"port"`
+		User     string `mapstructure:"user"`
+		Password string `mapstructure:"password"`
 	} `mapstructure:"rabbitmq"`
 
 	Redis struct {
@@ -89,7 +93,7 @@ func LoadCfg(ctx context.Context, path string) (*Cfg, error) {
 		return nil, errors.CustomError("database configuration is missing")
 	}
 
-	if config.RabbitMQ.Broker == "" {
+	if config.RabbitMQ.Driver == "" || config.RabbitMQ.Host == "" || config.RabbitMQ.Port == 0 || config.RabbitMQ.User == "" || config.RabbitMQ.Password == "" {
 		return nil, errors.CustomError("rabbitmq configuration is missing")
 	}
 
@@ -98,10 +102,6 @@ func LoadCfg(ctx context.Context, path string) (*Cfg, error) {
 	}
 
 	return &config, nil
-}
-
-func (c *Cfg) GetRabbitMQDSN() string {
-	return c.RabbitMQ.Broker
 }
 
 func (c *Cfg) GetRedisDSN() string {
