@@ -11,3 +11,7 @@ type UserLogs struct {
 	DeviceInfo string    `json:"device_info" gorm:"column:device_info;type:text"`
 	CreatedAt  time.Time `json:"created_at" gorm:"column:created_at;autoCreateTime"`
 }
+
+func (ul *UserLogs) TableName() string {
+	return "user_logs"
+}

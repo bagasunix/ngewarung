@@ -14,3 +14,7 @@ type ProductCategory struct {
 	Merchant Merchants  `json:"merchant,omitempty"`
 	Products []Products `json:"products,omitempty"`
 }
+
+func (pc *ProductCategory) TableName() string {
+	return "product_categories"
+}

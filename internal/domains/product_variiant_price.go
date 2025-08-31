@@ -16,3 +16,7 @@ type ProductVariantPrices struct {
 	Variant ProductVariants `json:"variant,omitempty"`
 	Outlet  Outlets         `json:"outlet,omitempty"`
 }
+
+func (pvp *ProductVariantPrices) TableName() string {
+	return "product_variant_prices"
+}

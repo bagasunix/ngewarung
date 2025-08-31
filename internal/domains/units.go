@@ -8,3 +8,7 @@ type Unit struct {
 	// Relations
 	Products []Products `json:"products,omitempty"`
 }
+
+func (u *Unit) TableName() string {
+	return "units"
+}

@@ -21,3 +21,7 @@ type Transactions struct {
 	User     Users              `json:"user,omitempty"`
 	Items    []TransactionItems `json:"items,omitempty"`
 }
+
+func (t *Transactions) TableName() string {
+	return "transactions"
+}

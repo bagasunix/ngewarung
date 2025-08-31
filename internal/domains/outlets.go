@@ -21,3 +21,7 @@ type Outlets struct {
 	Transactions         []Transactions         `json:"transactions,omitempty" gorm:"foreignKey:OutletID"`
 	PurchaseOrders       []PurchaseOrders       `json:"purchase_orders,omitempty" gorm:"foreignKey:OutletID"`
 }
+
+func (o *Outlets) TableName() string {
+	return "outlets"
+}

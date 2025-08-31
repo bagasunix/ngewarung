@@ -12,3 +12,7 @@ type ProductHistory struct {
 	Note         string    `json:"note" gorm:"column:note"`
 	CreatedAt    time.Time `json:"created_at" gorm:"autoCreateTime;column:created_at"`
 }
+
+func (ph *ProductHistory) TableName() string {
+	return "product_history"
+}

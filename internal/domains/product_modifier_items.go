@@ -10,3 +10,7 @@ type ProductModifierItems struct {
 	Product  Products         `json:"product,omitempty"`
 	Modifier ProductModifiers `json:"modifier,omitempty"`
 }
+
+func (pmi *ProductModifierItems) TableName() string {
+	return "product_modifier_items"
+}

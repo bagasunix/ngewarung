@@ -13,9 +13,13 @@ type ProductVariants struct {
 	UpdatedAt time.Time  `json:"updated_at" gorm:"column:updated_at;autoUpdateTime"`
 
 	// Relations
-	Product Products               `json:"product,omitempty"`
-	Prices  []ProductVariantPrices `json:"prices,omitempty"`
-	Stocks  []ProductVariantStocks `json:"stocks,omitempty"`
-	// PurchaseOrderItems []PurchaseOrderItem   `json:"purchase_order_items,omitempty"`
-	// TransactionItems   []TransactionItem     `json:"transaction_items,omitempty"`
+	Product            Products               `json:"product,omitempty"`
+	Prices             []ProductVariantPrices `json:"prices,omitempty"`
+	Stocks             []ProductVariantStocks `json:"stocks,omitempty"`
+	PurchaseOrderItems []PurchaseOrderItems   `json:"purchase_order_items,omitempty"`
+	TransactionItems   []TransactionItems     `json:"transaction_items,omitempty"`
+}
+
+func (pv *ProductVariants) TableName() string {
+	return "product_variants"
 }

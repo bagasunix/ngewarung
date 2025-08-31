@@ -12,3 +12,7 @@ type PurchaseOrderItems struct {
 	PurchaseOrder PurchaseOrders  `json:"purchase_order,omitempty"`
 	Variant       ProductVariants `json:"variant,omitempty"`
 }
+
+func (poi *PurchaseOrderItems) TableName() string {
+	return "purchase_order_items"
+}

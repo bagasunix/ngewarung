@@ -20,3 +20,7 @@ type Merchants struct {
 	Suppliers []Suppliers `json:"suppliers,omitempty" gorm:"foreignKey:MerchantID"`
 	Roles     []Roles     `json:"roles,omitempty" gorm:"foreignKey:MerchantID;references:ID"`
 }
+
+func (m *Merchants) TableName() string {
+	return "merchants"
+}

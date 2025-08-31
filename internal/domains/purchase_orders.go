@@ -17,3 +17,7 @@ type PurchaseOrders struct {
 	Outlet   *Outlets             `json:"outlet,omitempty"`
 	Items    []PurchaseOrderItems `json:"items,omitempty"`
 }
+
+func (po *PurchaseOrders) TableName() string {
+	return "purchase_orders"
+}

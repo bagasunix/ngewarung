@@ -17,3 +17,7 @@ type Suppliers struct {
 	Merchant       Merchants        `json:"merchant,omitempty"`
 	PurchaseOrders []PurchaseOrders `json:"purchase_orders,omitempty"`
 }
+
+func (s *Suppliers) TableName() string {
+	return "suppliers"
+}

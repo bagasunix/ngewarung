@@ -24,3 +24,7 @@ type TransactionItems struct {
 	Variant     *ProductVariants           `json:"variant,omitempty"`
 	Modifiers   []TransactionItemModifiers `json:"modifiers,omitempty"`
 }
+
+func (ti *TransactionItems) TableName() string {
+	return "transaction_items"
+}

@@ -11,3 +11,7 @@ type TransactionItemModifiers struct {
 	TransactionItem TransactionItems  `json:"transaction_item,omitempty"`
 	Modifier        *ProductModifiers `json:"modifier,omitempty"`
 }
+
+func (tim *TransactionItemModifiers) TableName() string {
+	return "transaction_item_modifiers"
+}

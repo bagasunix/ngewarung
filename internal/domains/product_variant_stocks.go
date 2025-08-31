@@ -15,3 +15,7 @@ type ProductVariantStocks struct {
 	Variant ProductVariants `json:"variant,omitempty"`
 	Outlet  Outlets         `json:"outlet,omitempty"`
 }
+
+func (pvs *ProductVariantStocks) TableName() string {
+	return "product_variant_stocks"
+}

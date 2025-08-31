@@ -18,10 +18,14 @@ type Products struct {
 	UpdatedAt   time.Time  `json:"updated_at" gorm:"column:updated_at;autoUpdateTime"`
 
 	// Relations
-	Merchant      Merchants              `json:"merchant,omitempty"`
-	Category      *ProductCategory       `json:"category,omitempty"`
-	Unit          *Unit                  `json:"unit,omitempty"`
-	Variants      []ProductVariants      `json:"variants,omitempty"`
-	ModifierItems []ProductModifierItems `json:"modifier_items,omitempty"`
-	// TransactionItems []TransactionItems     `json:"transaction_items,omitempty"`
+	Merchant         Merchants              `json:"merchant,omitempty"`
+	Category         *ProductCategory       `json:"category,omitempty"`
+	Unit             *Unit                  `json:"unit,omitempty"`
+	Variants         []ProductVariants      `json:"variants,omitempty"`
+	ModifierItems    []ProductModifierItems `json:"modifier_items,omitempty"`
+	TransactionItems []TransactionItems     `json:"transaction_items,omitempty"`
+}
+
+func (p *Products) TableName() string {
+	return "products"
 }

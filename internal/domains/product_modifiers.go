@@ -12,7 +12,11 @@ type ProductModifiers struct {
 	UpdatedAt  time.Time `json:"updated_at" gorm:"column:updated_at;autoUpdateTime"`
 
 	// Relations
-	Merchant             Merchants              `json:"merchant,omitempty"`
-	ProductModifierItems []ProductModifierItems `json:"product_modifier_items,omitempty"`
-	// TransactionItemModifiers []TransactionItemModifier `json:"transaction_item_modifiers,omitempty"`
+	Merchant                 Merchants                  `json:"merchant,omitempty"`
+	ProductModifierItems     []ProductModifierItems     `json:"product_modifier_items,omitempty"`
+	TransactionItemModifiers []TransactionItemModifiers `json:"transaction_item_modifiers,omitempty"`
+}
+
+func (pm *ProductModifiers) TableName() string {
+	return "product_modifiers"
 }
