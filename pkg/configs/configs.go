@@ -1,11 +1,11 @@
-package db
+package configs
 
 import (
 	"fmt"
 	"time"
 )
 
-type DbPostgresConfig struct {
+type DBConfig struct {
 	Driver          string
 	Host            string
 	Port            string
@@ -20,6 +20,6 @@ type DbPostgresConfig struct {
 	ConnMaxIdleTime time.Duration // tambahan: idle timeout
 }
 
-func (d *DbPostgresConfig) GetDSN() string {
-	return fmt.Sprintf("%s://%s:%s@%s:%s/%s?sslmode=%s", d.Driver, d.User, d.Password, d.Host, d.Port, d.DatabaseName, d.SSLMode)
+func (d *DBConfig) GetDSN() string {
+	return fmt.Sprintf("%s://%s:%s@%s:%s/", d.Driver, d.User, d.Password, d.Host, d.Port)
 }
