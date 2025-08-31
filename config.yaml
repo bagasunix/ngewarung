@@ -22,7 +22,11 @@ database:
   max_idle_time: "5m"
 
 rabbitmq:
-  broker: 127.0.0.1:9092
+  host: 127.0.0.1
+  port: 15672
+  driver: amqp
+  user: guest
+  password: guest
 
 redis:
   host: 127.0.0.1
