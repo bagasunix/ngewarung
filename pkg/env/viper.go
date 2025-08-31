@@ -22,8 +22,13 @@ type Cfg struct {
 	} `mapstructure:"app"`
 
 	Server struct {
-		Port    int    `mapstructure:"port"`
-		Version string `mapstructure:"version"`
+		Port        int    `mapstructure:"port"`
+		Version     string `mapstructure:"version"`
+		RateLimiter struct {
+			Enabled  bool          `mapstructure:"enabled"`
+			Limit    int           `mapstructure:"limit"`
+			Duration time.Duration `mapstructure:"duration"`
+		} `mapstructure:"rate_limiter"`
 	} `mapstructure:"server"`
 
 	Database struct {
