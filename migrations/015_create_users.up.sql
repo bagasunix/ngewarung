@@ -13,7 +13,7 @@ CREATE TABLE users (
     username VARCHAR(50) UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
     photo TEXT, -- URL foto profil
-    user_status SMALLINT DEFAULT 1, -- 1=active, 2=inactive, 3=suspended
+    user_status SMALLINT DEFAULT 0, -- 0=inactive, 1=active, 2=suspended
     is_login SMALLINT DEFAULT 0, -- 0=logged out, 1=logged in
     deleted_at TIMESTAMP, -- soft delete
     created_at TIMESTAMP DEFAULT now(),
