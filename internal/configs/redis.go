@@ -1,4 +1,4 @@
-package config
+package configs
 
 import (
 	"context"
@@ -6,9 +6,11 @@ import (
 
 	"github.com/go-redis/redis/v8"
 	"github.com/phuslu/log"
+
+	"github.com/bagasunix/ngewarung/pkg/env"
 )
 
-func InitRedis(ctx context.Context, logger *log.Logger, cfg *Cfg) *redis.Client {
+func InitRedis(ctx context.Context, logger *log.Logger, cfg *env.Cfg) *redis.Client {
 	options := &redis.Options{
 		Addr:     fmt.Sprintf("%s:%s", cfg.Redis.Host, cfg.Redis.Port),
 		Password: cfg.Redis.Password,

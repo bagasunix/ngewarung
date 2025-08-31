@@ -1,4 +1,4 @@
-package config
+package configs
 
 import (
 	"context"
@@ -16,10 +16,11 @@ import (
 	"gorm.io/plugin/dbresolver"
 
 	"github.com/bagasunix/ngewarung/pkg/db"
+	"github.com/bagasunix/ngewarung/pkg/env"
 	"github.com/bagasunix/ngewarung/pkg/errors"
 )
 
-func InitDB(ctx context.Context, cfg *Cfg, logger *log.Logger) *gorm.DB {
+func InitDB(ctx context.Context, cfg *env.Cfg, logger *log.Logger) *gorm.DB {
 	CfgBuild := &db.DbPostgresConfig{
 		Driver:          cfg.Database.Driver,
 		Host:            cfg.Database.Host,
