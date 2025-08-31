@@ -3,15 +3,17 @@ package configs
 import (
 	"context"
 
+	"github.com/go-redis/redis/v8"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/favicon"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 
+	"github.com/bagasunix/ngewarung/internal/middlewares"
 	"github.com/bagasunix/ngewarung/pkg/env"
 )
 
-func InitFiber(ctx context.Context, cfg *env.Cfg) *fiber.App {
+func InitFiber(ctx context.Context, cfg *env.Cfg, redisClient *redis.Client) *fiber.App {
 	app := fiber.New(fiber.Config{
 		AppName: cfg.App.Name,
 	})
@@ -25,5 +27,6 @@ func InitFiber(ctx context.Context, cfg *env.Cfg) *fiber.App {
 	app.Use(helmet.New())
 	app.Use(recover.New())
 	app.Use(favicon.New())
+	app.Use(middlewares.SlidingWindowCounter(redisClient, cfg))
 	return app
 }
