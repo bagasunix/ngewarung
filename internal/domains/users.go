@@ -17,7 +17,7 @@ type Users struct {
 	Username   string     `json:"username" gorm:"column:username;size:50;uniqueIndex;not null"`
 	Password   string     `json:"-" gorm:"column:password_hash;type:text;not null"` // hidden from JSON
 	Photo      string     `json:"photo" gorm:"column:photo;type:text"`
-	UserStatus int16      `json:"user_status" gorm:"column:user_status;default:1"` // 1=active, 2=inactive, 3=suspended
+	UserStatus int8       `json:"user_status" gorm:"column:user_status;default:0"` // 1=active, 2=suspended, 0=inactive
 	IsLogin    int8       `json:"is_login" gorm:"column:is_login;default:0"`       // 0=logged out, 1=logged in
 	DeletedAt  *time.Time `json:"deleted_at" gorm:"column:deleted_at"`             // soft delete
 	CreatedAt  time.Time  `json:"created_at" gorm:"column:created_at;autoCreateTime"`
