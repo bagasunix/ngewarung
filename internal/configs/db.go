@@ -15,13 +15,13 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/plugin/dbresolver"
 
-	"github.com/bagasunix/ngewarung/pkg/db"
+	"github.com/bagasunix/ngewarung/pkg/configs"
 	"github.com/bagasunix/ngewarung/pkg/env"
 	"github.com/bagasunix/ngewarung/pkg/errors"
 )
 
 func InitDB(ctx context.Context, cfg *env.Cfg, logger *log.Logger) *gorm.DB {
-	CfgBuild := &db.DbPostgresConfig{
+	CfgBuild := &configs.DBConfig{
 		Driver:          cfg.Database.Driver,
 		Host:            cfg.Database.Host,
 		Port:            strconv.Itoa(cfg.Database.Port),
@@ -38,9 +38,9 @@ func InitDB(ctx context.Context, cfg *env.Cfg, logger *log.Logger) *gorm.DB {
 	return NewPostgresDB(ctx, CfgBuild, logger)
 }
 
-func NewPostgresDB(ctx context.Context, cfg *db.DbPostgresConfig, logger *log.Logger) *gorm.DB {
+func NewPostgresDB(ctx context.Context, cfg *configs.DBConfig, logger *log.Logger) *gorm.DB {
 	// Membuat koneksi ke database dengan DSN dari dbConfig
-	db, err := gorm.Open(postgres.Open(cfg.GetDSN()), &gorm.Config{
+	db, err := gorm.Open(postgres.Open(cfg.GetDSN()+cfg.DatabaseName+"?sslmode="+cfg.SSLMode), &gorm.Config{
 		PrepareStmt:            true,
 		SkipDefaultTransaction: true,
 	})
@@ -76,6 +76,5 @@ func NewPostgresDB(ctx context.Context, cfg *db.DbPostgresConfig, logger *log.Lo
 	if err := sqlDB.PingContext(ctx); err != nil {
 		errors.HandlerWithOSExit(logger, err, "init", "database", "ping", "")
 	}
-
 	return db
 }
