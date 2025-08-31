@@ -6,7 +6,6 @@ import (
 	"github.com/phuslu/log"
 	"gorm.io/gorm"
 
-	"github.com/bagasunix/ngewarung/internal/delivery/dto/responses"
 	"github.com/bagasunix/ngewarung/internal/domains"
 	"github.com/bagasunix/ngewarung/pkg/errors"
 )
@@ -20,8 +19,13 @@ func (g *gormProvider) Create(ctx context.Context, m *domains.Users) error {
 	return errors.ErrDuplicateValue(g.logger, "users", g.db.WithContext(ctx).Create(m).Error)
 }
 
-func (g *gormProvider) FindByID(ctx context.Context, id uint) (m responses.BaseResponse[*domains.Users], err error) {
-	m.Errors = errors.ErrRecordNotFound(g.logger, "users", g.db.WithContext(ctx).First(&m.Data, "id = ?", id).Error)
+func (g *gormProvider) FindByID(ctx context.Context, id uint) (m domains.SingleResult[*domains.Users], err error) {
+	m.Error = errors.ErrRecordNotFound(g.logger, "users", g.db.WithContext(ctx).First(&m.Value, "id = ?", id).Error)
+	return
+}
+
+func (g *gormProvider) FindByParams(ctx context.Context, params map[string]interface{}) (m domains.SliceResult[*domains.Users], err error) {
+	m.Error = errors.ErrRecordNotFound(g.logger, "users", g.db.WithContext(ctx).Where(params).Find(&m.Value).Error)
 	return
 }
 
