@@ -27,6 +27,6 @@ func InitFiber(ctx context.Context, cfg *env.Cfg, redisClient *redis.Client) *fi
 	app.Use(helmet.New())
 	app.Use(recover.New())
 	app.Use(favicon.New())
-	app.Use(middlewares.SlidingWindowCounter(redisClient, cfg))
+	app.Use(middlewares.HybridRateLimiter(redisClient, cfg))
 	return app
 }
