@@ -1,5 +1,5 @@
 -- Migration: create table user registration
-CREATE TABLE users (
+CREATE TABLE user_registrations (
     id BIGSERIAL PRIMARY KEY,
     role_id BIGINT NOT NULL REFERENCES roles(id) ON DELETE CASCADE,
     name VARCHAR(150) NOT NULL,
@@ -14,4 +14,4 @@ CREATE TABLE users (
     updated_at TIMESTAMP DEFAULT now() 
 );
 
-CREATE INDEX idx_user_registrations_email ON users(email);
+CREATE INDEX idx_user_registrations_email ON user_registrations(email);
