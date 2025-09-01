@@ -11,7 +11,8 @@ type UserRegistrations struct {
 	Username   string     `json:"username" gorm:"column:username;size:50;uniqueIndex;not null"`
 	Password   string     `json:"-" gorm:"column:password_hash;type:text;not null"` // hidden from JSON
 	UserStatus int16      `json:"user_status" gorm:"column:user_status;default:1"`  // 1=active, 2=pending, 3=suspended
-	DeletedAt  *time.Time `json:"deleted_at" gorm:"column:deleted_at"`              // soft delete
+	RoleID     int64      `json:"role_id" gorm:"column:role_id;not null"`
+	DeletedAt  *time.Time `json:"deleted_at" gorm:"column:deleted_at"` // soft delete
 	CreatedAt  time.Time  `json:"created_at" gorm:"column:created_at;autoCreateTime"`
 	UpdatedAt  *time.Time `json:"updated_at" gorm:"column:updated_at;autoUpdateTime"`
 }
