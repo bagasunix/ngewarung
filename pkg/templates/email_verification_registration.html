@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verifikasi Email Ngewarung</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    max-width: 600px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  .header {
+    background-color: #007BFF;
+    color: #ffffff;
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .content {
+    padding: 30px 25px;
+    color: #333333;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  .button {
+    display: inline-block;
+    margin: 25px 0;
+    padding: 14px 28px;
+    background-color: #007BFF;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+    transition: all 0.2s ease-in-out;
+  }
+  .button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 16px rgba(0,86,179,0.4);
+  }
+  .footer {
+    padding: 20px 25px;
+    text-align: center;
+    font-size: 13px;
+    color: #888888;
+  }
+  @media only screen and (max-width: 600px) {
+    .header { font-size: 24px; padding: 25px 15px; }
+    .content { padding: 25px 15px; font-size: 15px; }
+    .button { padding: 12px 22px; font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      NGEWARUNG
+    </div>
+    <div class="content">
+      <p>Halo <strong>{{user_name}}</strong>,</p>
+      <p>Selamat datang di <strong>Ngewarung</strong>! Sebelum Anda mulai, mari verifikasi email Anda agar akun dapat diaktifkan.</p>
+      <p style="text-align:center;">
+        <a href="{{verification_link}}" class="button">Verifikasi Email</a>
+      </p>
+      <p>Jika Anda tidak mendaftar di Ngewarung, abaikan email ini. Email ini dibuat khusus untuk keamanan akun Anda.</p>
+      <p>Salam hangat,<br>Tim Ngewarung</p>
+    </div>
+    <div class="footer">
+      &copy; 2025 Ngewarung. Semua hak cipta dilindungi.<br>
+      Ngewarung - Platform B2B UMKM, Mini Market & Supermarket
+    </div>
+  </div>
+</body>
+</html>
