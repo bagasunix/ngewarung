@@ -70,10 +70,10 @@
       NGEWARUNG
     </div>
     <div class="content">
-      <p>Halo <strong>{{user_name}}</strong>,</p>
+      <p>Halo <strong>{{ .UserName }}</strong>,</p>
       <p>Selamat datang di <strong>Ngewarung</strong>! Sebelum Anda mulai, mari verifikasi email Anda agar akun dapat diaktifkan.</p>
       <p style="text-align:center;">
-        <a href="{{verification_link}}" class="button">Verifikasi Email</a>
+        <a href="{{ .Url }}" class="button">Verifikasi Email</a>
       </p>
       <p>Jika Anda tidak mendaftar di Ngewarung, abaikan email ini. Email ini dibuat khusus untuk keamanan akun Anda.</p>
       <p>Salam hangat,<br>Tim Ngewarung</p>
