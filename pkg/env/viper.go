@@ -29,6 +29,10 @@ type Cfg struct {
 			Limit    int           `mapstructure:"limit"`
 			Duration time.Duration `mapstructure:"duration"`
 		} `mapstructure:"rate_limiter"`
+		MailJet struct {
+			ApiKey   string `mapstructure:"api_key"`
+			ScretKey string `mapstructure:"scret_key"`
+		} `mapstructure:"mailjet"`
 	} `mapstructure:"server"`
 
 	Database struct {
