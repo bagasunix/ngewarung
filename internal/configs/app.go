@@ -29,7 +29,7 @@ func SetupApp(app *setupApp) *http.RouteConfig {
 	repositories := repositories.New(app.Log, app.DB)
 
 	// setup use cases
-	userUseCase := usecases.NewUserUsecase(repositories, app.Log, app.RabbitMQ)
+	userUseCase := usecases.NewUserUsecase(repositories, app.Log, app.RabbitMQ, app.Cfg)
 	// setup controller
 	userController := controllers.NewUserController(userUseCase, app.Log, repositories)
 

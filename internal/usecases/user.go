@@ -3,7 +3,6 @@ package usecases
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"regexp"
 	"strings"
 
@@ -15,18 +14,39 @@ import (
 	"github.com/bagasunix/ngewarung/internal/delivery/dto/responses"
 	"github.com/bagasunix/ngewarung/internal/domains"
 	"github.com/bagasunix/ngewarung/internal/repositories"
+	"github.com/bagasunix/ngewarung/pkg/env"
 	"github.com/bagasunix/ngewarung/pkg/errors"
 	"github.com/bagasunix/ngewarung/pkg/hash"
+	"github.com/bagasunix/ngewarung/pkg/helpers"
 )
 
 type userUsecase struct {
 	repo   repositories.Repositories
 	logger *log.Logger
 	rb     *amqp091.Connection
+	cfg    *env.Cfg
 }
 
 type UserUsecase interface {
 	CreateUser(ctx context.Context, req *requests.UserRequest) (response *responses.BaseResponse[*responses.UserResponse])
+	SendEmailRegistration(ctx context.Context, user *requests.UserRequest) error
+}
+
+func (u *userUsecase) SendEmailRegistration(ctx context.Context, user *requests.UserRequest) error {
+	u.logger.Info().Msgf("Sending registration email to %s in usecase", user.Email)
+	// Implement email sending logic here
+	parseDatatoHtml, err := helpers.ParseTemplate("./pkg/templates/email_verification_registration.html", domains.SendEmailRegistrationCustome{
+		UserName: user.Username,
+		Name:     user.Name,
+		Url:      "http://www.bagasunix.com",
+	})
+	if err != nil {
+		return err
+	}
+	if err = helpers.SendEmail(parseDatatoHtml, user.Email, "Pendaftaran Stroberi Tagihan", u.cfg); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u *userUsecase) CreateUser(ctx context.Context, req *requests.UserRequest) (response *responses.BaseResponse[*responses.UserResponse]) {
@@ -92,12 +112,12 @@ func (u *userUsecase) CreateUser(ctx context.Context, req *requests.UserRequest)
 	entityBuild.RoleID = 2
 	entityBuild.UserStatus = 2
 
-	if err = u.repo.GetUserRegistration().Create(ctx, entityBuild); err != nil {
-		res.Code = fiber.StatusConflict
-		res.Message = "Gagal membuat pengguna"
-		res.Errors = err
-		return res
-	}
+	// if err = u.repo.GetUserRegistration().Create(ctx, entityBuild); err != nil {
+	// 	res.Code = fiber.StatusConflict
+	// 	res.Message = "Gagal membuat pengguna"
+	// 	res.Errors = err
+	// 	return res
+	// }
 
 	bodyRb, _ := json.Marshal(entityBuild)
 
@@ -118,8 +138,6 @@ func (u *userUsecase) CreateUser(ctx context.Context, req *requests.UserRequest)
 		return
 	}
 
-	fmt.Println(string(bodyRb))
-
 	mBuild := new(responses.UserResponse)
 	mBuild.ID = entityBuild.ID
 	mBuild.Name = entityBuild.Name
@@ -132,10 +150,11 @@ func (u *userUsecase) CreateUser(ctx context.Context, req *requests.UserRequest)
 	return res
 }
 
-func NewUserUsecase(repo repositories.Repositories, logger *log.Logger, rb *amqp091.Connection) UserUsecase {
+func NewUserUsecase(repo repositories.Repositories, logger *log.Logger, rb *amqp091.Connection, cfg *env.Cfg) UserUsecase {
 	a := new(userUsecase)
 	a.logger = logger
 	a.repo = repo
 	a.rb = rb
+	a.cfg = cfg
 	return a
 }

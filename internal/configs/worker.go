@@ -23,7 +23,7 @@ func RunWorker() {
 	rabbitConn := InitRabbitMQ(ctx, cfg, logger)
 
 	repo := repositories.New(logger, db)
-	userUsecase := usecases.NewUserUsecase(repo, logger, rabbitConn)
+	userUsecase := usecases.NewUserUsecase(repo, logger, rabbitConn, cfg)
 
 	// Inisialisasi dan jalankan semua consumers
 	consumerManager := messaging.NewConsumerManager(ctx, cfg, logger, rabbitConn, repo, userUsecase)
