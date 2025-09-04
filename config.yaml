@@ -19,6 +19,12 @@ server:
   mailjet:
     api_key: 5764c846fbe0d6956c428c4b8abb4f77
     secret_key: 2ed850885c673307e573d82405cf3edf
+    hostname: smtp.gmail.com
+    port: 587
+    username: aldinopratama15@gmail.com
+    password: eken fwlz hkyo nqpo
+  token:
+    jwt_key: ngewarung!321
 
 database:
   driver: postgres
