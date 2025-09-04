@@ -15,12 +15,12 @@ import (
 )
 
 type setupApp struct {
-	DB       *gorm.DB
-	App      *fiber.App
-	Log      *log.Logger
-	Cfg      *env.Cfg
-	Redis    *redis.Client
-	RabbitMQ *amqp091.Connection
+	DB   *gorm.DB
+	App  *fiber.App
+	Log  *log.Logger
+	Cfg  *env.Cfg
+	rc   *redis.Client
+	amqp *amqp091.Connection
 }
 
 func SetupApp(app *setupApp) *http.RouteConfig {
@@ -29,15 +29,18 @@ func SetupApp(app *setupApp) *http.RouteConfig {
 	repositories := repositories.New(app.Log, app.DB)
 
 	// setup use cases
-	userUseCase := usecases.NewUserUsecase(repositories, app.Log, app.RabbitMQ, app.Cfg)
+	userUseCase := usecases.NewUserUsecase(repositories, app.Log, app.amqp, app.rc, app.Cfg)
+	authUsecase := usecases.NewAuthUsecase(app.Log, app.DB, app.Cfg, repositories, app.rc)
 	// setup controller
 	userController := controllers.NewUserController(userUseCase, app.Log, repositories)
+	authContoller := controllers.NewAuthController(app.Log, repositories, authUsecase)
 
 	return &http.RouteConfig{
 		App:            app.App,
 		UserController: userController,
+		AuthController: authContoller,
 		Cfg:            app.Cfg,
-		Redis:          app.Redis,
-		RabbitMQ:       app.RabbitMQ,
+		Rc:             app.rc,
+		Amqp:           app.amqp,
 	}
 }
