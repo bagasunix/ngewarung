@@ -19,7 +19,7 @@ type Transactions struct {
 	Merchant Merchants          `json:"merchant,omitempty"`
 	Outlet   Outlets            `json:"outlet,omitempty"`
 	User     Users              `json:"user,omitempty"`
-	Items    []TransactionItems `json:"items,omitempty"`
+	Items    []TransactionItems `json:"items,omitempty" gorm:"foreignKey:TransactionID;references:ID"`
 }
 
 func (t *Transactions) TableName() string {

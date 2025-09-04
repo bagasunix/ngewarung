@@ -22,7 +22,7 @@ type TransactionItems struct {
 	Transaction Transactions               `json:"transaction,omitempty"`
 	Product     *Products                  `json:"product,omitempty"`
 	Variant     *ProductVariants           `json:"variant,omitempty"`
-	Modifiers   []TransactionItemModifiers `json:"modifiers,omitempty"`
+	Modifiers   []TransactionItemModifiers `json:"modifiers,omitempty" gorm:"foreignKey:ModifierID;references:ID"`
 }
 
 func (ti *TransactionItems) TableName() string {

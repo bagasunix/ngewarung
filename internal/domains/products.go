@@ -21,9 +21,9 @@ type Products struct {
 	Merchant         Merchants              `json:"merchant,omitempty"`
 	Category         *ProductCategory       `json:"category,omitempty"`
 	Unit             *Unit                  `json:"unit,omitempty"`
-	Variants         []ProductVariants      `json:"variants,omitempty"`
-	ModifierItems    []ProductModifierItems `json:"modifier_items,omitempty"`
-	TransactionItems []TransactionItems     `json:"transaction_items,omitempty"`
+	Variants         []ProductVariants      `json:"variants,omitempty" gorm:"foreignKey:ProductID;references:ID"`
+	ModifierItems    []ProductModifierItems `json:"modifier_items,omitempty" gorm:"foreignKey:ProductID;references:ID"`
+	TransactionItems []TransactionItems     `json:"transaction_items,omitempty" gorm:"foreignKey:ProductID;references:ID"`
 }
 
 func (p *Products) TableName() string {

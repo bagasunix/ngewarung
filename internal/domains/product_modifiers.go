@@ -13,8 +13,8 @@ type ProductModifiers struct {
 
 	// Relations
 	Merchant                 Merchants                  `json:"merchant,omitempty"`
-	ProductModifierItems     []ProductModifierItems     `json:"product_modifier_items,omitempty"`
-	TransactionItemModifiers []TransactionItemModifiers `json:"transaction_item_modifiers,omitempty"`
+	ProductModifierItems     []ProductModifierItems     `json:"product_modifier_items,omitempty" gorm:"foreignKey:ModifierID;references:ID"`
+	TransactionItemModifiers []TransactionItemModifiers `json:"transaction_item_modifiers,omitempty" gorm:"foreignKey:ModifierID;references:ID"`
 }
 
 func (pm *ProductModifiers) TableName() string {

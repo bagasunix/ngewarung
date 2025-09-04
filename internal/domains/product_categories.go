@@ -12,7 +12,7 @@ type ProductCategory struct {
 
 	// Relations
 	Merchant Merchants  `json:"merchant,omitempty"`
-	Products []Products `json:"products,omitempty"`
+	Products []Products `json:"products,omitempty" gorm:"foreignKey:CategoryID;references:ID"`
 }
 
 func (pc *ProductCategory) TableName() string {

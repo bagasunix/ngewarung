@@ -14,10 +14,10 @@ type ProductVariants struct {
 
 	// Relations
 	Product            Products               `json:"product,omitempty"`
-	Prices             []ProductVariantPrices `json:"prices,omitempty"`
-	Stocks             []ProductVariantStocks `json:"stocks,omitempty"`
-	PurchaseOrderItems []PurchaseOrderItems   `json:"purchase_order_items,omitempty"`
-	TransactionItems   []TransactionItems     `json:"transaction_items,omitempty"`
+	Prices             []ProductVariantPrices `json:"prices,omitempty" gorm:"foreignKey:VariantID;references:ID"`
+	Stocks             []ProductVariantStocks `json:"stocks,omitempty" gorm:"foreignKey:VariantID;references:ID"`
+	PurchaseOrderItems []PurchaseOrderItems   `json:"purchase_order_items,omitempty" gorm:"foreignKey:VariantID;references:ID"`
+	TransactionItems   []TransactionItems     `json:"transaction_items,omitempty" gorm:"foreignKey:VariantID;references:ID"`
 }
 
 func (pv *ProductVariants) TableName() string {

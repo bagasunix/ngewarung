@@ -24,8 +24,8 @@ func (g *gormProvider) FindByID(ctx context.Context, id uint) (m domains.SingleR
 	return
 }
 
-func (g *gormProvider) FindByParams(ctx context.Context, params map[string]interface{}) (m domains.SliceResult[*domains.Users], err error) {
-	m.Error = errors.ErrRecordNotFound(g.logger, "users", g.db.WithContext(ctx).Where(params).Find(&m.Value).Error)
+func (g *gormProvider) FindByParams(ctx context.Context, params map[string]interface{}) (m domains.SingleResult[*domains.Users], err error) {
+	m.Error = errors.ErrRecordNotFound(g.logger, "users", g.db.WithContext(ctx).Where(params).First(&m.Value).Error)
 	return
 }
 

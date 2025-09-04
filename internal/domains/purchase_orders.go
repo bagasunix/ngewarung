@@ -15,7 +15,7 @@ type PurchaseOrders struct {
 	Merchant Merchants            `json:"merchant,omitempty"`
 	Supplier Suppliers            `json:"supplier,omitempty"`
 	Outlet   *Outlets             `json:"outlet,omitempty"`
-	Items    []PurchaseOrderItems `json:"items,omitempty"`
+	Items    []PurchaseOrderItems `json:"items,omitempty" gorm:"foreignKey:PurchaseOrderID;references:ID"`
 }
 
 func (po *PurchaseOrders) TableName() string {

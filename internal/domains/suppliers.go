@@ -15,7 +15,7 @@ type Suppliers struct {
 
 	// Relations
 	Merchant       Merchants        `json:"merchant,omitempty"`
-	PurchaseOrders []PurchaseOrders `json:"purchase_orders,omitempty"`
+	PurchaseOrders []PurchaseOrders `json:"purchase_orders,omitempty" gorm:"foreignKey:SupplierID;references:ID"`
 }
 
 func (s *Suppliers) TableName() string {

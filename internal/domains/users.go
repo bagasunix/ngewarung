@@ -24,10 +24,10 @@ type Users struct {
 	UpdatedAt  *time.Time `json:"updated_at" gorm:"column:updated_at;autoUpdateTime"`
 
 	// Relations
-	Merchant     *Merchants     `json:"merchant,omitempty" gorm:"foreignKey:MerchantID;references:ID"`
-	Outlet       *Outlets       `json:"outlet,omitempty" gorm:"foreignKey:OutletID;references:ID"`
-	Role         Roles          `json:"role,omitempty" gorm:"foreignKey:RoleID;references:ID"`
-	Transactions []Transactions `json:"transactions,omitempty" gorm:"foreignKey:UserID"`
+	Merchant     *Merchants     `json:"merchant,omitempty"`
+	Outlet       *Outlets       `json:"outlet,omitempty"`
+	Role         *Roles         `json:"role,omitempty"`
+	Transactions []Transactions `json:"transactions,omitempty" gorm:"foreignKey:UserID;references:ID"`
 }
 
 func (u *Users) TableName() string {
