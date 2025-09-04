@@ -15,10 +15,11 @@ import (
 type RouteConfig struct {
 	App            *fiber.App
 	UserController *controllers.UserController
+	AuthController *controllers.AuthController
 	Cfg            *env.Cfg
-	Redis          *redis.Client
+	Rc             *redis.Client
 	Logger         *log.Logger
-	RabbitMQ       *amqp091.Connection
+	Amqp           *amqp091.Connection
 }
 
 func InitHttpHandler(f *RouteConfig) *fiber.App {
@@ -29,5 +30,6 @@ func NewHttpHandler(r RouteConfig) *fiber.App {
 	// Initialize middleware
 	// Handlers
 	handlers.MakeUserHandler(r.UserController, r.App.Group(r.Cfg.Server.Version+"/users").(*fiber.Group))
+	handlers.MakeAuthHandler(r.AuthController, r.App.Group(r.Cfg.Server.Version+"/auth").(*fiber.Group))
 	return r.App
 }
