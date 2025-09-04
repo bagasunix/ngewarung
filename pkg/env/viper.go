@@ -32,7 +32,15 @@ type Cfg struct {
 		MailJet struct {
 			ApiKey   string `mapstructure:"api_key"`
 			ScretKey string `mapstructure:"scret_key"`
+			HostName string `mapstructure:"hostname"`
+			Port     int    `mapstructure:"port"`
+			Username string `mapstructure:"username"`
+			Password string `mapstructure:"password"`
 		} `mapstructure:"mailjet"`
+		Token struct {
+			JWTKey       string `mapstructure:"jwt_key"`
+			SignatureKey string `mapstructure:"signature_key"`
+		} `mapstructure:"token"`
 	} `mapstructure:"server"`
 
 	Database struct {
