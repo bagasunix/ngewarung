@@ -21,17 +21,17 @@ func Run() {
 	logger := InitLogger()
 	Cfg := env.InitConfig(ctx, logger)
 	db := InitDB(ctx, Cfg, logger)
-	rabbitConn := InitRabbitMQ(ctx, Cfg, logger)
+	rabbitmq := InitRabbitMQ(ctx, Cfg, logger)
 	redis := InitRedis(ctx, logger, Cfg)
 
 	app := InitFiber(ctx, Cfg, redis)
 	setup := SetupApp(&setupApp{
-		DB:       db,
-		App:      app,
-		Log:      logger,
-		Cfg:      Cfg,
-		Redis:    redis,
-		RabbitMQ: rabbitConn,
+		DB:   db,
+		App:  app,
+		Log:  logger,
+		Cfg:  Cfg,
+		rc:   redis,
+		amqp: rabbitmq,
 	})
 	httpHandler := http.InitHttpHandler(setup)
 
