@@ -1,0 +1,8 @@
+-- 000043_rls_tagihan.down.sql
+
+BEGIN;
+
+ALTER TABLE tagihan DISABLE ROW LEVEL SECURITY;
+
+COMMIT;
+

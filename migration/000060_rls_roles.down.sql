@@ -1,0 +1,8 @@
+-- 000060_rls_roles.down.sql
+
+BEGIN;
+
+ALTER TABLE roles DISABLE ROW LEVEL SECURITY;
+
+COMMIT;
+

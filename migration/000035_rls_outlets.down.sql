@@ -1,0 +1,8 @@
+-- 000035_rls_outlets.down.sql
+
+BEGIN;
+
+ALTER TABLE outlets DISABLE ROW LEVEL SECURITY;
+
+COMMIT;
+
