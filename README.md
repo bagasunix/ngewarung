@@ -13,4 +13,4 @@
 ## Configuration
 All configuration is in `pkg/config/config.yaml` file.
 ## Database Migration
-All database migration is in `migrations` folder.
+All database migration is in the `migration/` folder (see also `docs/README.md`).
