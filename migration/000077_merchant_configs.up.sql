@@ -34,5 +34,18 @@ WHERE is_deleted = FALSE;
 CREATE INDEX IF NOT EXISTS idx_merchant_configs_merchant_id ON merchant_configs(merchant_id);
 CREATE INDEX IF NOT EXISTS idx_merchant_configs_config_key ON merchant_configs(config_key);
 
+COMMENT ON TABLE merchant_configs IS 'Konfigurasi key-value per tenant (secret/JSON/text): integrasi, JWT, webhook.';
+
+COMMENT ON COLUMN merchant_configs.id IS 'Primary key baris config.';
+COMMENT ON COLUMN merchant_configs.merchant_id IS 'Tenant pemilik.';
+COMMENT ON COLUMN merchant_configs.config_key IS 'Kunci unik namespaced (lihat konvensi di dokumentasi RLS).';
+COMMENT ON COLUMN merchant_configs.value_json IS 'Nilai non-rahasia (JSONB).';
+COMMENT ON COLUMN merchant_configs.value_encrypted IS 'Nilai rahasia terenkripsi di aplikasi (BYTEA).';
+COMMENT ON COLUMN merchant_configs.value_text IS 'Nilai string sederhana.';
+COMMENT ON COLUMN merchant_configs.is_deleted IS 'Flag soft delete.';
+COMMENT ON COLUMN merchant_configs.deleted_at IS 'Waktu soft delete.';
+COMMENT ON COLUMN merchant_configs.created_at IS 'Waktu pembuatan.';
+COMMENT ON COLUMN merchant_configs.updated_at IS 'Waktu pembaruan.';
+
 COMMIT;
 

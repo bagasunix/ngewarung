@@ -15,5 +15,15 @@ CREATE TABLE IF NOT EXISTS product_variants (
 
 CREATE INDEX IF NOT EXISTS idx_product_variants_product_id ON product_variants(product_id);
 
+COMMENT ON TABLE product_variants IS 'Varian SKU per produk (ukuran/kemasan); harga per outlet di product_variant_prices.';
+
+COMMENT ON COLUMN product_variants.id IS 'Primary key varian.';
+COMMENT ON COLUMN product_variants.product_id IS 'Produk induk.';
+COMMENT ON COLUMN product_variants.name IS 'Nama varian (mis. 250ml).';
+COMMENT ON COLUMN product_variants.sku IS 'SKU varian opsional.';
+COMMENT ON COLUMN product_variants.deleted_at IS 'Soft delete.';
+COMMENT ON COLUMN product_variants.created_at IS 'Waktu pembuatan.';
+COMMENT ON COLUMN product_variants.updated_at IS 'Waktu pembaruan.';
+
 COMMIT;
 

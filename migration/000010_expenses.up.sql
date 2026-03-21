@@ -14,5 +14,14 @@ CREATE TABLE IF NOT EXISTS expenses (
 
 CREATE INDEX IF NOT EXISTS idx_expenses_outlet_date ON expenses(outlet_id, date);
 
+COMMENT ON TABLE expenses IS 'Pengeluaran usaha per outlet per tanggal.';
+
+COMMENT ON COLUMN expenses.id IS 'Primary key pengeluaran.';
+COMMENT ON COLUMN expenses.outlet_id IS 'Cabang yang menanggung biaya.';
+COMMENT ON COLUMN expenses.amount IS 'Jumlah (satuan terkecil).';
+COMMENT ON COLUMN expenses.note IS 'Keterangan beban.';
+COMMENT ON COLUMN expenses.date IS 'Tanggal beban.';
+COMMENT ON COLUMN expenses.created_at IS 'Waktu rekaman.';
+
 COMMIT;
 

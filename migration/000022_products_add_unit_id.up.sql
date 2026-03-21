@@ -8,5 +8,7 @@ ALTER TABLE products
 
 CREATE INDEX IF NOT EXISTS idx_products_unit_id ON products(unit_id);
 
+COMMENT ON COLUMN products.unit_id IS 'Referensi master units (selain kolom unit teks legacy).';
+
 COMMIT;
 

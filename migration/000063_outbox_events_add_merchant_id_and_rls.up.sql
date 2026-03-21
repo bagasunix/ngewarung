@@ -9,6 +9,10 @@ ALTER TABLE outbox_events
 CREATE INDEX IF NOT EXISTS idx_outbox_events_merchant_id
   ON outbox_events(merchant_id);
 
+COMMENT ON TABLE outbox_events IS 'Outbox untuk event bus: payload JSON, merchant_id untuk RLS tenant, published_at saat selesai dipublikasikan.';
+
+COMMENT ON COLUMN outbox_events.merchant_id IS 'Tenant untuk isolasi RLS; NULL untuk event legacy sebelum kolom ini ada.';
+
 -- Enable RLS for outbox_events.
 ALTER TABLE outbox_events ENABLE ROW LEVEL SECURITY;
 

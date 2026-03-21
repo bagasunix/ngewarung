@@ -10,5 +10,12 @@ CREATE TABLE IF NOT EXISTS units (
     updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+COMMENT ON TABLE units IS 'Master satuan (pcs, kg, dll.) untuk produk.';
+
+COMMENT ON COLUMN units.id IS 'Primary key satuan.';
+COMMENT ON COLUMN units.name IS 'Nama satuan unik.';
+COMMENT ON COLUMN units.created_at IS 'Waktu pembuatan.';
+COMMENT ON COLUMN units.updated_at IS 'Waktu pembaruan.';
+
 COMMIT;
 

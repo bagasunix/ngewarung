@@ -80,5 +80,52 @@ CREATE TABLE IF NOT EXISTS merge_entity_mappings (
 CREATE INDEX IF NOT EXISTS idx_merge_entity_mappings_request ON merge_entity_mappings(merge_request_id);
 CREATE INDEX IF NOT EXISTS idx_merge_entity_mappings_entity ON merge_entity_mappings(entity_type);
 
+COMMENT ON TABLE merge_requests IS 'Permintaan merge antar tenant atau satu outlet ke tenant lain (dry-run/execute); untuk admin/service.';
+COMMENT ON TABLE merge_checkpoints IS 'Langkah eksekusi merge (checkpoint) untuk resume dan audit proses.';
+COMMENT ON TABLE merge_entity_mappings IS 'Mapping ID sumber ke ID target per merge untuk jejak dan rollback.';
+
+COMMENT ON COLUMN merge_requests.id IS 'Primary key permintaan merge.';
+COMMENT ON COLUMN merge_requests.scope_type IS '1=merchant ke merchant; 2=outlet ke merchant.';
+COMMENT ON COLUMN merge_requests.source_merchant_id IS 'Tenant sumber.';
+COMMENT ON COLUMN merge_requests.source_outlet_id IS 'Cabang sumber jika scope outlet.';
+COMMENT ON COLUMN merge_requests.target_merchant_id IS 'Tenant tujuan.';
+COMMENT ON COLUMN merge_requests.target_outlet_id IS 'Cabang tujuan opsional.';
+COMMENT ON COLUMN merge_requests.run_mode IS '1=dry-run; 2=eksekusi.';
+COMMENT ON COLUMN merge_requests.status IS 'Alur: diminta, disetujui, jalan, selesai, gagal, rollback, batal.';
+COMMENT ON COLUMN merge_requests.requested_by_user_id IS 'Pemohon.';
+COMMENT ON COLUMN merge_requests.approved_by_user_id IS 'Penyetuju.';
+COMMENT ON COLUMN merge_requests.executed_by_user_id IS 'Eksekutor.';
+COMMENT ON COLUMN merge_requests.reason IS 'Alasan bisnis.';
+COMMENT ON COLUMN merge_requests.dry_run_report IS 'Hasil validasi dry-run (JSON).';
+COMMENT ON COLUMN merge_requests.execution_summary IS 'Ringkasan setelah jalan (JSON).';
+COMMENT ON COLUMN merge_requests.error_message IS 'Pesan error jika gagal.';
+COMMENT ON COLUMN merge_requests.requested_at IS 'Waktu permintaan.';
+COMMENT ON COLUMN merge_requests.approved_at IS 'Waktu persetujuan.';
+COMMENT ON COLUMN merge_requests.started_at IS 'Waktu mulai eksekusi.';
+COMMENT ON COLUMN merge_requests.completed_at IS 'Waktu selesai.';
+COMMENT ON COLUMN merge_requests.rolled_back_at IS 'Waktu rollback jika ada.';
+COMMENT ON COLUMN merge_requests.created_at IS 'Waktu rekaman.';
+COMMENT ON COLUMN merge_requests.updated_at IS 'Waktu pembaruan.';
+COMMENT ON COLUMN merge_requests.deleted_at IS 'Soft delete.';
+
+COMMENT ON COLUMN merge_checkpoints.id IS 'Primary key checkpoint.';
+COMMENT ON COLUMN merge_checkpoints.merge_request_id IS 'Permintaan merge induk.';
+COMMENT ON COLUMN merge_checkpoints.step_key IS 'Nama langkah (string).';
+COMMENT ON COLUMN merge_checkpoints.status IS '1=menunggu; 2=jalan; 3=sukses; 4=gagal; 5=dilewati.';
+COMMENT ON COLUMN merge_checkpoints.detail_json IS 'Detail eksekusi langkah.';
+COMMENT ON COLUMN merge_checkpoints.started_at IS 'Mulai langkah.';
+COMMENT ON COLUMN merge_checkpoints.completed_at IS 'Selesai langkah.';
+COMMENT ON COLUMN merge_checkpoints.created_at IS 'Waktu pembuatan.';
+COMMENT ON COLUMN merge_checkpoints.updated_at IS 'Waktu pembaruan.';
+
+COMMENT ON COLUMN merge_entity_mappings.id IS 'Primary key mapping.';
+COMMENT ON COLUMN merge_entity_mappings.merge_request_id IS 'Permintaan merge.';
+COMMENT ON COLUMN merge_entity_mappings.entity_type IS 'Jenis entitas (tabel/logis).';
+COMMENT ON COLUMN merge_entity_mappings.source_id IS 'ID di sistem sumber.';
+COMMENT ON COLUMN merge_entity_mappings.target_id IS 'ID di sistem tujuan.';
+COMMENT ON COLUMN merge_entity_mappings.metadata_json IS 'Metadata.';
+COMMENT ON COLUMN merge_entity_mappings.created_at IS 'Waktu pembuatan.';
+COMMENT ON COLUMN merge_entity_mappings.updated_at IS 'Waktu pembaruan.';
+
 COMMIT;
 

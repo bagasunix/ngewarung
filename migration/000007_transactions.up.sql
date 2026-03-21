@@ -18,5 +18,17 @@ CREATE TABLE IF NOT EXISTS transactions (
 CREATE INDEX IF NOT EXISTS idx_transactions_outlet_occurred_at
     ON transactions(outlet_id, occurred_at);
 
+COMMENT ON TABLE transactions IS 'Header penjualan POS: outlet, kasir, pelanggan, total, status, waktu.';
+
+COMMENT ON COLUMN transactions.id IS 'Primary key transaksi.';
+COMMENT ON COLUMN transactions.outlet_id IS 'Cabang tempat transaksi terjadi.';
+COMMENT ON COLUMN transactions.cashier_id IS 'User kasir yang melayani.';
+COMMENT ON COLUMN transactions.customer_id IS 'Pelanggan opsional.';
+COMMENT ON COLUMN transactions.total IS 'Total nilai transaksi (satuan terkecil).';
+COMMENT ON COLUMN transactions.discount IS 'Diskon total header.';
+COMMENT ON COLUMN transactions.status IS 'Status transaksi (enum transaction_status).';
+COMMENT ON COLUMN transactions.occurred_at IS 'Waktu kejadian bisnis (bukan hanya created_at).';
+COMMENT ON COLUMN transactions.created_at IS 'Waktu rekaman masuk sistem.';
+
 COMMIT;
 

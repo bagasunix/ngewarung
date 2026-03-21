@@ -13,5 +13,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS uq_outlets_price_central_per_merchant
 ON outlets(merchant_id)
 WHERE is_price_central = TRUE AND merchant_id IS NOT NULL;
 
+COMMENT ON COLUMN outlets.merchant_id IS 'Tenant induk B2B; semua cabang mengait ke merchants.';
+
 COMMIT;
 

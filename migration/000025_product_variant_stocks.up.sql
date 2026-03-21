@@ -16,5 +16,14 @@ CREATE TABLE IF NOT EXISTS product_variant_stocks (
 CREATE INDEX IF NOT EXISTS idx_product_variant_stocks_variant_id ON product_variant_stocks(variant_id);
 CREATE INDEX IF NOT EXISTS idx_product_variant_stocks_outlet_id ON product_variant_stocks(outlet_id);
 
+COMMENT ON TABLE product_variant_stocks IS 'Stok per varian per outlet.';
+
+COMMENT ON COLUMN product_variant_stocks.id IS 'Primary key stok varian.';
+COMMENT ON COLUMN product_variant_stocks.variant_id IS 'Varian.';
+COMMENT ON COLUMN product_variant_stocks.outlet_id IS 'Cabang.';
+COMMENT ON COLUMN product_variant_stocks.quantity IS 'Jumlah stok.';
+COMMENT ON COLUMN product_variant_stocks.updated_at IS 'Waktu pembaruan stok.';
+COMMENT ON COLUMN product_variant_stocks.deleted_at IS 'Soft delete.';
+
 COMMIT;
 

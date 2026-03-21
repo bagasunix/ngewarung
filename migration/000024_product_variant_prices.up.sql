@@ -14,5 +14,15 @@ CREATE TABLE IF NOT EXISTS product_variant_prices (
     UNIQUE (variant_id, outlet_id)
 );
 
+COMMENT ON TABLE product_variant_prices IS 'Harga jual per varian per outlet (satuan terkecil mata uang); mendukung cabang custom vs ikut pusat.';
+
+COMMENT ON COLUMN product_variant_prices.id IS 'Primary key baris harga.';
+COMMENT ON COLUMN product_variant_prices.variant_id IS 'Varian produk.';
+COMMENT ON COLUMN product_variant_prices.outlet_id IS 'Cabang yang berlaku harga ini.';
+COMMENT ON COLUMN product_variant_prices.price IS 'Harga jual (satuan terkecil mata uang).';
+COMMENT ON COLUMN product_variant_prices.deleted_at IS 'Soft delete.';
+COMMENT ON COLUMN product_variant_prices.created_at IS 'Waktu pembuatan.';
+COMMENT ON COLUMN product_variant_prices.updated_at IS 'Waktu pembaruan.';
+
 COMMIT;
 

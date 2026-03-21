@@ -158,7 +158,21 @@ Daftar lengkap tabel ter-RLS: **[TENANT_RLS_DOCUMENTATION.md](./TENANT_RLS_DOCUM
 
 ---
 
-## 12) Artefak SQL di `docs/` (bukan migrasi)
+## 12) Komentar di PostgreSQL (`COMMENT ON TABLE` / `COMMENT ON COLUMN`)
+
+Setiap migrasi `CREATE TABLE` menyertakan:
+
+- **`COMMENT ON TABLE`** — deskripsi tujuan tabel.
+- **`COMMENT ON COLUMN`** — fungsi tiap kolom (terlihat di **pgAdmin**, **DBeaver**, `\d+` di psql, `pg_catalog.pg_description`).
+
+Kolom yang ditambah migrasi terpisah pun punya komentar di file yang sama, mis. `outlets.merchant_id` (`000017`), `products.unit_id` (`000022`), kolom finance `transaction_items` (`000032`), `outbox_events.merchant_id` (`000063`).
+
+- Bahasa: Indonesia (ringkas).
+- Tabel `outbox_events`: komentar tabel diperbarui di `000063` setelah `merchant_id` dan RLS.
+
+---
+
+## 13) Artefak SQL di `docs/` (bukan migrasi)
 
 | File | Gunanya |
 |------|---------|
@@ -167,4 +181,4 @@ Daftar lengkap tabel ter-RLS: **[TENANT_RLS_DOCUMENTATION.md](./TENANT_RLS_DOCUM
 
 ---
 
-*Update dokumen ini ketika menambah migrasi `000086+`.*
+*Update dokumen ini ketika menambah migrasi `000086+` (termasuk `COMMENT ON` untuk tabel baru).*

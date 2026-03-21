@@ -46,6 +46,35 @@ CREATE INDEX IF NOT EXISTS idx_merchant_entitlements_merchant_feature
 CREATE INDEX IF NOT EXISTS idx_merchant_entitlements_effective
   ON merchant_entitlements(effective_from, effective_to);
 
+COMMENT ON TABLE billing_usage_daily IS 'Agregat pemakaian harian per fitur (metering) untuk limit/overage.';
+COMMENT ON TABLE merchant_entitlements IS 'Cache hak fitur efektif per merchant (gate API cepat) dari plan + override.';
+
+COMMENT ON COLUMN billing_usage_daily.id IS 'Primary key agregat.';
+COMMENT ON COLUMN billing_usage_daily.merchant_id IS 'Tenant.';
+COMMENT ON COLUMN billing_usage_daily.outlet_id IS 'Cabang jika usage per outlet.';
+COMMENT ON COLUMN billing_usage_daily.feature_key IS 'Kunci fitur yang diukur.';
+COMMENT ON COLUMN billing_usage_daily.usage_date IS 'Tanggal agregat.';
+COMMENT ON COLUMN billing_usage_daily.used_count IS 'Jumlah terpakai.';
+COMMENT ON COLUMN billing_usage_daily.limit_snapshot IS 'Salinan limit saat agregat.';
+COMMENT ON COLUMN billing_usage_daily.overage_count IS 'Kelebihan di luar limit.';
+COMMENT ON COLUMN billing_usage_daily.metadata_json IS 'Metadata.';
+COMMENT ON COLUMN billing_usage_daily.created_at IS 'Waktu pembuatan.';
+COMMENT ON COLUMN billing_usage_daily.updated_at IS 'Waktu pembaruan.';
+COMMENT ON COLUMN billing_usage_daily.deleted_at IS 'Soft delete.';
+
+COMMENT ON COLUMN merchant_entitlements.id IS 'Primary key entitlement.';
+COMMENT ON COLUMN merchant_entitlements.merchant_id IS 'Tenant.';
+COMMENT ON COLUMN merchant_entitlements.feature_key IS 'Fitur.';
+COMMENT ON COLUMN merchant_entitlements.is_enabled IS 'Fitur diizinkan.';
+COMMENT ON COLUMN merchant_entitlements.limit_value IS 'Batas (NULL=tak terbatas).';
+COMMENT ON COLUMN merchant_entitlements.source IS 'Sumber: plan, override, manual.';
+COMMENT ON COLUMN merchant_entitlements.effective_from IS 'Mulai berlaku.';
+COMMENT ON COLUMN merchant_entitlements.effective_to IS 'Akhir berlaku.';
+COMMENT ON COLUMN merchant_entitlements.metadata_json IS 'Metadata.';
+COMMENT ON COLUMN merchant_entitlements.created_at IS 'Waktu pembuatan.';
+COMMENT ON COLUMN merchant_entitlements.updated_at IS 'Waktu pembaruan.';
+COMMENT ON COLUMN merchant_entitlements.deleted_at IS 'Soft delete.';
+
 -- RLS: tenant scoped
 ALTER TABLE billing_usage_daily ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS billing_usage_daily_by_merchant ON billing_usage_daily;

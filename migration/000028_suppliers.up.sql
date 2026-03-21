@@ -18,5 +18,18 @@ CREATE TABLE IF NOT EXISTS suppliers (
 
 CREATE INDEX IF NOT EXISTS idx_suppliers_merchant_id ON suppliers(merchant_id);
 
+COMMENT ON TABLE suppliers IS 'Master pemasok per tenant untuk PO/restock.';
+
+COMMENT ON COLUMN suppliers.id IS 'Primary key pemasok.';
+COMMENT ON COLUMN suppliers.merchant_id IS 'Tenant.';
+COMMENT ON COLUMN suppliers.name IS 'Nama pemasok.';
+COMMENT ON COLUMN suppliers.contact_person IS 'Kontak orang.';
+COMMENT ON COLUMN suppliers.phone IS 'Telepon.';
+COMMENT ON COLUMN suppliers.address IS 'Alamat.';
+COMMENT ON COLUMN suppliers.created_at IS 'Waktu pembuatan.';
+COMMENT ON COLUMN suppliers.updated_at IS 'Waktu pembaruan.';
+COMMENT ON COLUMN suppliers.deleted_at IS 'Soft delete.';
+COMMENT ON COLUMN suppliers.is_deleted IS 'Flag soft delete.';
+
 COMMIT;
 

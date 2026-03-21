@@ -18,5 +18,16 @@ CREATE INDEX IF NOT EXISTS idx_purchase_orders_supplier_id ON purchase_orders(su
 CREATE INDEX IF NOT EXISTS idx_purchase_orders_order_date ON purchase_orders(order_date);
 CREATE INDEX IF NOT EXISTS idx_purchase_orders_merchant_id ON purchase_orders(merchant_id);
 
+COMMENT ON TABLE purchase_orders IS 'Header purchase order (restock) ke pemasok; opsional outlet tujuan.';
+
+COMMENT ON COLUMN purchase_orders.id IS 'Primary key PO.';
+COMMENT ON COLUMN purchase_orders.merchant_id IS 'Tenant pemilik PO.';
+COMMENT ON COLUMN purchase_orders.supplier_id IS 'Pemasok.';
+COMMENT ON COLUMN purchase_orders.outlet_id IS 'Cabang tujuan pengiriman/stok jika diisi.';
+COMMENT ON COLUMN purchase_orders.order_date IS 'Tanggal/waktu pesan.';
+COMMENT ON COLUMN purchase_orders.purchase_status IS '1=pending; 2=diterima; 3=batal.';
+COMMENT ON COLUMN purchase_orders.deleted_at IS 'Soft delete.';
+COMMENT ON COLUMN purchase_orders.is_deleted IS 'Flag soft delete.';
+
 COMMIT;
 

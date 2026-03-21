@@ -13,5 +13,12 @@ CREATE TABLE IF NOT EXISTS transaction_item_modifiers (
 CREATE INDEX IF NOT EXISTS idx_transaction_item_modifiers_tx_item_id
   ON transaction_item_modifiers(transaction_item_id);
 
+COMMENT ON TABLE transaction_item_modifiers IS 'Modifier yang dipilih pada baris transaksi beserta harga.';
+
+COMMENT ON COLUMN transaction_item_modifiers.id IS 'Primary key modifier terpilih.';
+COMMENT ON COLUMN transaction_item_modifiers.transaction_item_id IS 'Baris transaksi.';
+COMMENT ON COLUMN transaction_item_modifiers.modifier_id IS 'Definisi modifier.';
+COMMENT ON COLUMN transaction_item_modifiers.price IS 'Harga modifier pada saat jual.';
+
 COMMIT;
 

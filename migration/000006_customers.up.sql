@@ -17,5 +17,18 @@ CREATE TABLE IF NOT EXISTS customers (
     UNIQUE (outlet_id, phone)
 );
 
+COMMENT ON TABLE customers IS 'Pelanggan per outlet: kontak, poin loyalitas, jejak transaksi terakhir.';
+
+COMMENT ON COLUMN customers.id IS 'Primary key pelanggan.';
+COMMENT ON COLUMN customers.outlet_id IS 'Cabang tempat pelanggan tercatat.';
+COMMENT ON COLUMN customers.phone IS 'Nomor telepon (unik per outlet jika diisi).';
+COMMENT ON COLUMN customers.name IS 'Nama pelanggan.';
+COMMENT ON COLUMN customers.points_balance IS 'Saldo poin loyalitas.';
+COMMENT ON COLUMN customers.last_transaction_at IS 'Waktu transaksi terakhir.';
+COMMENT ON COLUMN customers.deleted_at IS 'Soft delete.';
+COMMENT ON COLUMN customers.is_deleted IS 'Flag soft delete.';
+COMMENT ON COLUMN customers.created_at IS 'Waktu pembuatan.';
+COMMENT ON COLUMN customers.updated_at IS 'Waktu pembaruan terakhir.';
+
 COMMIT;
 

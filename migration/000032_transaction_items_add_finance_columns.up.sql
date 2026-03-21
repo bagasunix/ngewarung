@@ -16,5 +16,13 @@ ALTER TABLE transaction_items
 
 CREATE INDEX IF NOT EXISTS idx_transaction_items_variant_id ON transaction_items(variant_id);
 
+COMMENT ON COLUMN transaction_items.variant_id IS 'Varian SKU jika penjualan per varian.';
+COMMENT ON COLUMN transaction_items.amount_bruto IS 'Nilai kotor baris sebelum diskon/pajak.';
+COMMENT ON COLUMN transaction_items.discount_type IS 'Jenis diskon baris (kode aplikasi).';
+COMMENT ON COLUMN transaction_items.discount_value IS 'Nilai parameter diskon (persen/nominal sesuai type).';
+COMMENT ON COLUMN transaction_items.discount_amount IS 'Nominal diskon terhitung.';
+COMMENT ON COLUMN transaction_items.tax_percent IS 'Persen pajak baris.';
+COMMENT ON COLUMN transaction_items.tax_amount IS 'Nominal pajak baris.';
+
 COMMIT;
 

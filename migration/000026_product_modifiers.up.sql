@@ -16,5 +16,16 @@ CREATE TABLE IF NOT EXISTS product_modifiers (
 
 CREATE INDEX IF NOT EXISTS idx_product_modifiers_merchant_id ON product_modifiers(merchant_id);
 
+COMMENT ON TABLE product_modifiers IS 'Grup modifier/add-on per tenant (topping, ekstra) dengan harga.';
+
+COMMENT ON COLUMN product_modifiers.id IS 'Primary key modifier.';
+COMMENT ON COLUMN product_modifiers.merchant_id IS 'Tenant pemilik definisi modifier.';
+COMMENT ON COLUMN product_modifiers.name IS 'Nama grup modifier.';
+COMMENT ON COLUMN product_modifiers.price IS 'Harga tambahan default.';
+COMMENT ON COLUMN product_modifiers.created_at IS 'Waktu pembuatan.';
+COMMENT ON COLUMN product_modifiers.updated_at IS 'Waktu pembaruan.';
+COMMENT ON COLUMN product_modifiers.deleted_at IS 'Soft delete.';
+COMMENT ON COLUMN product_modifiers.is_deleted IS 'Flag soft delete.';
+
 COMMIT;
 
