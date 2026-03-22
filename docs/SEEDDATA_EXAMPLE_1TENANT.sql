@@ -1,6 +1,7 @@
 -- Seed data example for 1 merchant (enterprise grade / tenant-aware)
 -- Assumptions:
 -- - All migrations are already applied.
+-- - Nominal uang: kolom memakai NUMERIC(19,2) — literal bisa integer atau desimal (mis. 3500.00).
 -- - RLS context is set via: SET LOCAL app.merchant_id = '<merchant_id>';
 -- - Database is empty (or IDs don't collide).
 -- Usage:
@@ -80,6 +81,8 @@ VALUES
   ('55555555-5555-5555-5555-555555555555', '44444444-4444-4444-4444-444444444444', 'Makanan', now(), now(), NULL, FALSE)
 ON CONFLICT (id) DO NOTHING;
 
+-- products.price = NULL: harga jual lewat product_variant_prices (varian + outlet).
+-- unit = teks (legacy/quick label); unit_id = FK ke units — selaras, lihat docs/PRODUCT_UNITS.md
 INSERT INTO products (
   id, outlet_id, category_id,
   name, sku, price, unit, unit_id,
@@ -92,7 +95,7 @@ VALUES
    '55555555-5555-5555-5555-555555555555',
    'Indomie Goreng 1 Cup',
    'SKU-INDOMIE-001',
-   3500,
+   NULL,
    'pcs',
    '66666666-6666-6666-6666-666666666666',
    99,
@@ -120,7 +123,7 @@ VALUES
   ('99999999-9999-9999-9999-999999999990',
    '88888888-8888-8888-8888-888888888889',
    '44444444-4444-4444-4444-444444444444',
-   3500,
+   3500.00,
    NULL,
    now(), now())
 ON CONFLICT (id) DO NOTHING;
@@ -143,7 +146,7 @@ VALUES
   ('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
    '11111111-1111-1111-1111-111111111111',
    'Telur',
-   3000,
+   3000.00,
    now(), now(), NULL, FALSE)
 ON CONFLICT (id) DO NOTHING;
 
@@ -185,7 +188,7 @@ VALUES
    'ffffffff-ffff-ffff-ffff-ffffffffffff',
    '88888888-8888-8888-8888-888888888889',
    10,
-   3000)
+   3000.00)
 ON CONFLICT (id) DO NOTHING;
 
 -- ledger: purchase +10
@@ -239,8 +242,8 @@ VALUES
    'dddddddd-dddd-dddd-dddd-dddddddddddd',
    'Bapak Ahmad',
    '628123450001',
-   100000,
-   50000,
+   100000.00,
+   50000.00,
    '2026-03-10',
    'PARTIAL',
    now(), now())
@@ -250,7 +253,7 @@ INSERT INTO tagihan_payments (id, tagihan_id, amount, paid_at, created_at)
 VALUES
   ('09090909-0909-0909-0909-090909090909',
    '08080808-0808-0808-0808-080808080808',
-   50000,
+   50000.00,
    '2026-03-02T15:00:00Z',
    now())
 ON CONFLICT (id) DO NOTHING;
@@ -264,8 +267,8 @@ VALUES
    '44444444-4444-4444-4444-444444444444',
    '22222222-2222-2222-2222-222222222223',
    'dddddddd-dddd-dddd-dddd-dddddddddddd',
-   6500, -- 3500 base + 3000 modifier/add-on
-   0,
+   6500.00, -- 3500 base + 3000 modifier/add-on (NUMERIC 19,2)
+   0.00,
    'COMPLETED',
    '2026-03-02T12:00:00Z',
    now())
@@ -281,11 +284,11 @@ VALUES
    '77777777-7777-7777-7777-777777777779',
    '88888888-8888-8888-8888-888888888889',
    1,
-   3500,
-   3500,
-   3500,
-   0, 0, 0,
-   0.00, 0)
+   3500.00,
+   3500.00,
+   3500.00,
+   0, 0.00, 0.00,
+   0.00, 0.00)
 ON CONFLICT (id) DO NOTHING;
 
 -- selected modifier (Telur) on that transaction_item
@@ -294,7 +297,7 @@ VALUES
   ('05050505-0505-0505-0505-050505050505',
    '04040404-0404-0404-0404-040404040404',
    'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
-   3000)
+   3000.00)
 ON CONFLICT (id) DO NOTHING;
 
 -- payment (cash)
@@ -303,7 +306,7 @@ VALUES
   ('06060606-0606-0606-0606-060606060606',
    '03030303-0303-0303-0303-030303030303',
    'cash',
-   3500 + 3000,
+   6500.00,
    NULL,
    now())
 ON CONFLICT (id) DO NOTHING;
@@ -315,7 +318,7 @@ INSERT INTO expenses (id, outlet_id, amount, note, date, created_at)
 VALUES
   ('07070707-0707-0707-0707-070707070707',
    '44444444-4444-4444-4444-444444444444',
-   25000,
+   25000.00,
    'Beli plastik & serbet',
    '2026-03-02',
    now())
@@ -323,7 +326,7 @@ ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO daily_summaries (outlet_id, date, total_sales, total_expenses, transaction_count)
 VALUES
-  ('44444444-4444-4444-4444-444444444444', '2026-03-02', 6500, 25000, 1)
+  ('44444444-4444-4444-4444-444444444444', '2026-03-02', 6500.00, 25000.00, 1)
 ON CONFLICT (outlet_id, date) DO NOTHING;
 
 -- =====================================

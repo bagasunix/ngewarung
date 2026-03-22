@@ -1,5 +1,5 @@
 -- Billing seed + gate query examples (production-style baseline)
--- Assumes migrations 000081..000084 are already applied.
+-- Assumes migrations 000070..000073 (billing) are already applied.
 
 BEGIN;
 
